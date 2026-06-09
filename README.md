@@ -107,13 +107,49 @@ src/
     └── utils.ts
 ```
 
-## Deploy
+## Deploy no Render
 
-Recomendado: [Vercel](https://vercel.com) + Supabase.
+O projeto já vem pronto para o [Render](https://render.com). Não é preciso alterar o código.
+
+### Passo a passo
+
+1. **Supabase** — crie o projeto e execute `supabase/schema.sql` (se ainda não fez)
+
+2. **Render** — acesse [dashboard.render.com](https://dashboard.render.com) → **New** → **Blueprint**
+   - Conecte o repositório GitHub
+   - O Render detecta o `render.yaml` automaticamente
+
+3. **Variáveis de ambiente** — no painel do serviço, preencha:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `NEXT_PUBLIC_PSYCHOLOGIST_ID` (UUID da psicóloga, após criar a conta)
+
+4. **Supabase Auth** — em Authentication → URL Configuration, adicione a URL do Render:
+   - **Site URL:** `https://seu-app.onrender.com`
+   - **Redirect URLs:** `https://seu-app.onrender.com/**`
+
+5. Aguarde o deploy. A URL ficará algo como `https://psicologa-consultorio.onrender.com`
+
+### Deploy manual (sem Blueprint)
+
+Se preferir criar o Web Service manualmente:
+
+| Campo | Valor |
+|-------|-------|
+| Runtime | Node |
+| Build Command | `npm install && npm run build` |
+| Start Command | `npm start` |
+
+### Observação (plano gratuito)
+
+No plano free, o serviço “dorme” após inatividade e a primeira visita pode demorar ~30s para responder. Para uso profissional contínuo, considere o plano pago.
+
+## Deploy na Vercel (alternativa)
 
 1. Faça push para GitHub
-2. Importe no Vercel
-3. Configure as variáveis de ambiente
+2. Importe no [Vercel](https://vercel.com)
+3. Configure as mesmas variáveis de ambiente
 4. Deploy automático
 
 ## E-mail (opcional)
